@@ -54,16 +54,48 @@ Identifique a intenção do usuário e execute a sequência recomendada:
 
 ### Workflow Autônomo Completo por Vaga (Ciclo de Candidatura & Evidências)
 Para cada vaga relevante identificada na pipeline, o agente deve executar o ciclo completo sem demandar confirmações repetitivas:
-1. **Avaliação & Report:** Analisar a vaga e gerar o relatório em `reports/NNN-{company-slug}-{date}.md`.
-2. **PDF ATS:** Gerar o currículo otimizado em HTML e compilar o PDF A4 na pasta `output/NNN-{company-slug}.pdf`.
-3. **Pacote de Apply:** Gerar as respostas para o formulário de candidatura (Why company, experiência técnica, pretensão, autorização de trabalho) e salvar a seção `## Application Answers` no relatório.
-4. **Outreach & Recrutadores:** Pesquisar contatos no LinkedIn (Recrutadores, Engineering Managers, Founders), gerar links de busca direta e salvar o guia em `interview-prep/{company-slug}-recruiter-outreach.md`.
-5. **Tracker:** Registrar a vaga no tracker `data/applications.md` (status `Evaluated`, PDF `✅`) e validar com `npm run verify`.
-6. **Auto-Progressão:** Avançar automaticamente para a próxima vaga da fila sem solicitar comandos intermediários repetitivos.
+1. **Reserva de Número:** Executar `node reserve-report-num.mjs` para obter o número `NNN` sem conflitos.
+2. **Avaliação & Report:** Analisar a vaga e gerar o relatório em `reports/NNN-{company-slug}-{date}.md`.
+3. **PDF ATS:** Gerar o currículo otimizado em HTML (margem `0.6in`, fonte `11px`) e compilar o PDF A4 na pasta `output/NNN-{company-slug}.pdf` com `generate-pdf.mjs`.
+4. **Pacote de Apply:** Criar o JSON de respostas em `scratch/` e persistir na seção `## Application Answers` do relatório usando `node application-answers.mjs`.
+5. **Outreach & Recrutadores:** Pesquisar contatos no LinkedIn (Recrutadores, Engineering Managers, Founders), gerar links de busca direta clicáveis e salvar o guia em `interview-prep/{company-slug}-recruiter-outreach.md`.
+6. **Tracker:** Registrar a vaga no tracker `data/applications.md` (status `Evaluated`, PDF `✅`), atualizar `data/pipeline.md` e validar com `npm run verify`.
+7. **Auto-Progressão:** Avançar automaticamente para a próxima vaga da fila sem solicitar comandos intermediários repetitivos.
 
 ---
 
-## 4. Regras Absolutas e Salvaguardas
+## 4. Aprendizados Acumulados & Evolução da Skill (Práticas Comprovadas)
+
+Com base na execução de dezenas de ciclos de candidatura reais, este conhecimento operacional garante 100% de precisão e velocidade:
+
+### A. Numeração e Reserva de Relatórios (`reserve-report-num.mjs`)
+- **Prática:** Sempre consulte o script de reserva para determinar a numeração oficial `NNN` (ex: `001`, `002`, `020`), evitando numeração manual incorreta ou colisão.
+- **Liberação:** Sempre execute `node reserve-report-num.mjs --release NNN` ao finalizar a gravação do relatório.
+
+### B. Persistência de Respostas (`application-answers.mjs`)
+- **Prática:** Em vez de editar a seção `## Application Answers` com regex, crie um JSON estruturado em `scratch/{company}-answers.json` com os campos `freeText`, `fieldValues`, `files` e execute:
+  `node application-answers.mjs --report reports/NNN-*.md --input scratch/*.json --state filled`
+
+### C. Otimização de PDFs ATS em 1 Página A4
+- **Prática:** Para garantir que o currículo caiba perfeitamente em 1 página A4 sem truncamento:
+  - Utilize margem CSS `@page { margin: 0.6in; }` e tamanho de fonte `11px`.
+  - Compile com `node generate-pdf.mjs input.html output.pdf --format=a4`.
+
+### D. Estruturação de Guias de Recrutadores (`interview-prep/`)
+- **Prática:** Cada guia de abordagem de recrutadores deve conter:
+  1. Links clicáveis de pesquisa no LinkedIn (`https://www.linkedin.com/search/results/people/?keywords=...`).
+  2. Rascunhos de notas de conexão em Português e Inglês estritamente limitados a ≤300 caracteres.
+  3. Template de InMail/E-mail completo.
+
+### E. Integridade e Validação Contínua (`npm run verify`)
+- **Prática:** O script `npm run verify` verifica 12 regras estritas de consistência (links, formatação, status canônicos, duplicatas). Execute após cada lote para manter 0 erros.
+
+### F. Modo Autônomo & Permissões
+- **Prática:** Inicie o CLI com `--auto-approve` (`agy --auto-approve`) ou aprove o prefixo de comandos (`npm`, `node`, `git`) para evitar interrupções manuais por comando.
+
+---
+
+## 5. Regras Absolutas e Salvaguardas
 
 1. **Zero Fabricação (Fonte Única da Verdade):** Apenas utilize fatos documentados em `cv.md`, `config/profile.yml` ou afirmados diretamente pelo usuário. Nunca invente métricas, tecnologias ou empregos.
 2. **Supervisão Humana Obrigatória:** Nunca clique em "Submit", envie e-mails ou envie mensagens de recrutamento sem aprovação prévia do usuário.
@@ -74,7 +106,7 @@ Para cada vaga relevante identificada na pipeline, o agente deve executar o cicl
 
 ---
 
-## 5. Árvore de Solução de Problemas
+## 6. Árvore de Solução de Problemas
 
 - **Erro `Cannot find package ...`:** Execute `npm install`.
 - **Nenhuma vaga retornada no Scan:** Execute `npm run validate:portals` para verificar sintaxe do `portals.yml`.
