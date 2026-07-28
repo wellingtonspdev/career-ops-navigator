@@ -52,30 +52,14 @@ Identifique a intenção do usuário e execute a sequência recomendada:
 
 ## 3. Sequenciamentos de Workflow Recomendados
 
-### Workflow 1: Onboarding Inicial (Executado apenas 1x)
-1. Executar `node doctor.mjs --json` para identificar pendências.
-2. Criar `cv.md` a partir das informações reais do usuário (sem inventar fatos).
-3. Criar `config/profile.yml` definindo cargos-alvo e `language.output: pt-BR`.
-4. Criar `portals.yml` a partir de `templates/portals.example.yml`.
-5. Rodar `npm run sync-check` e `npm run verify`.
-
-### Workflow 2: Rotina Diária de Busca (Daily Search Loop)
-1. **Scanner:** `npm run scan -- --verify` (Descobre vagas e preenche `data/pipeline.md`).
-2. **Processamento:** `/career-ops pipeline` (Avalia vagas na fila e gera relatórios em `reports/`).
-3. **Revisão:** Apresenta ao usuário apenas as vagas com nota ≥ 3.5/5.0.
-4. **Decisão:** Pergunta ao usuário quais vagas ele deseja avançar.
-
-### Workflow 3: Avaliação & Candidatura Cirúrgica (Single Job)
-1. **Avaliação:** `/career-ops {URL}` (Executa o auto-pipeline completo).
-2. **Relatório:** Exibe nota de fit, riscos, senioridade e legitimidade (Blocos A-G).
-3. **PDF:** Se nota ≥ 3.0, gera currículo otimizado em `output/`.
-4. **Formulário:** Se o usuário decidir aplicar, executa `/career-ops apply` para gerar respostas para os campos.
-5. **Human-in-the-Loop:** O usuário faz a submissão final no site da empresa.
-
-### Workflow 4: Preparação para Entrevistas
-1. **Histórias STAR:** Atualiza `interview-prep/story-bank.md`.
-2. **Simulação:** Executa `/career-ops interview/practice` para rodar perguntas simuladas.
-3. **Red Flags:** Executa `/career-ops interview-redflag` para analisar a saúde da empresa.
+### Workflow Autônomo Completo por Vaga (Ciclo de Candidatura & Evidências)
+Para cada vaga relevante identificada na pipeline, o agente deve executar o ciclo completo sem demandar confirmações repetitivas:
+1. **Avaliação & Report:** Analisar a vaga e gerar o relatório em `reports/NNN-{company-slug}-{date}.md`.
+2. **PDF ATS:** Gerar o currículo otimizado em HTML e compilar o PDF A4 na pasta `output/NNN-{company-slug}.pdf`.
+3. **Pacote de Apply:** Gerar as respostas para o formulário de candidatura (Why company, experiência técnica, pretensão, autorização de trabalho) e salvar a seção `## Application Answers` no relatório.
+4. **Outreach & Recrutadores:** Pesquisar contatos no LinkedIn (Recrutadores, Engineering Managers, Founders), gerar links de busca direta e salvar o guia em `interview-prep/{company-slug}-recruiter-outreach.md`.
+5. **Tracker:** Registrar a vaga no tracker `data/applications.md` (status `Evaluated`, PDF `✅`) e validar com `npm run verify`.
+6. **Auto-Progressão:** Avançar automaticamente para a próxima vaga da fila sem solicitar comandos intermediários repetitivos.
 
 ---
 
