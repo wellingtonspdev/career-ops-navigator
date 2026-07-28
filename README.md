@@ -1,7 +1,8 @@
-# 🧭 career-ops-navigator
+# 🧭 career-ops-navigator v2.0.0
 
 <div align="center">
 
+[![Version 2.0.0](https://img.shields.io/badge/version-2.0.0-blue.svg)](SKILL.md)
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Base Tool](https://img.shields.io/badge/Base--Tool-career--ops-blue.svg)](https://github.com/santifer/career-ops.git)
 [![Multi-CLI Support](https://img.shields.io/badge/CLIs-Claude%20%7C%20Antigravity%20%7C%20Codex%20%7C%20OpenCode%20%7C%20Copilot-orange.svg)](#-compatibilidade-multi-cli)
@@ -14,11 +15,21 @@
 
 ---
 
+## 📌 Histórico de Versões & Controle de Release
+
+| Versão | Data | Tipo | Descrição das Mudanças |
+|---|---|---|---|
+| **v2.0.0** | 2026-07-28 | **Major Release** | **Ciclo Autônomo Completo por Vaga:** Reserva de relatórios (`reserve-report-num.mjs`), compilação de PDFs ATS A4 (1 página), persistência determinística de formulários (`application-answers.mjs`), busca de recrutadores no LinkedIn com links clicáveis e 6 novos aprendizados de precisão. |
+| **v1.1.0** | 2026-07-28 | Minor Update | Suporte ao modo autônomo sem prompts repetitivos por etapa e sincronização contínua. |
+| **v1.0.0** | 2026-07-28 | Initial Release | Lançamento inicial com matriz de intenções multi-CLI. |
+
+---
+
 ## 💡 O que é o `career-ops-navigator`?
 
 O **`career-ops-navigator`** é uma skill universal de IA que funciona como um **piloto automático instrucional** para a ferramenta [career-ops](https://github.com/santifer/career-ops.git).
 
-Ela traduz qualquer desejo em linguagem natural do usuário (ex: *"quero achar vagas de IA"*, *"como me me preparo para a entrevista?"*, *"qual comando rodar agora?"*) diretamente nos **comandos, scripts e ordens operacionais corretas** para o seu CLI de IA preferido.
+Ela traduz qualquer desejo em linguagem natural do usuário (ex: *"quero achar vagas de IA"*, *"como me preparo para a entrevista?"*, *"qual comando rodar agora?"*) diretamente nos **comandos, scripts e ordens operacionais corretas** para o seu CLI de IA preferido.
 
 ---
 
@@ -39,7 +50,6 @@ Você pode instalar a skill globalmente no seu sistema com apenas um comando:
 ```powershell
 irm https://raw.githubusercontent.com/wellingtonspdev/career-ops-navigator/main/install.ps1 | iex
 ```
-*(ou clone o repositório e execute `.\install.ps1`)*
 
 ### Linux / macOS (Bash):
 ```bash
@@ -50,86 +60,37 @@ curl -fsSL https://raw.githubusercontent.com/wellingtonspdev/career-ops-navigato
 
 ## 💻 Compatibilidade Multi-CLI (Passo a Passo)
 
-A skill já vem pré-configurada para todos os CLIs de IA modernos. Basta abrir o terminal na pasta do seu projeto **career-ops**:
+A skill já vem pré-configurada para todos os CLIs de IA modernos:
 
 ### 1. Antigravity CLI (`agy`)
-- **Instalação Local:** Copie a pasta da skill para `.agents/skills/career-ops-navigator/`.
-- **Como usar:**
-  ```text
-  /career-ops-navigator
-  ```
-  ou em linguagem natural:
-  ```text
-  "Como usar o career-ops para achar novas vagas?"
-  ```
+- **Comando:** `/career-ops` ou `"Como usar o career-ops para achar novas vagas?"`
 
 ### 2. Claude Code (`claude`)
-- **Instalação Local:** Copie para `.claude/skills/career-ops-navigator/`.
-- **Como usar:**
-  ```text
-  /career-ops-navigator
-  ```
-  ou pergunte ao Claude:
-  ```text
-  "Qual a ordem correta para me candidatar a uma vaga no career-ops?"
-  ```
+- **Comando:** `/career-ops` ou `"Qual a ordem correta para me candidatar a uma vaga no career-ops?"`
 
 ### 3. OpenAI Codex CLI (`codex`)
-- **Instalação Local:** Copie para `.codex/skills/career-ops-navigator/`.
-- **Como usar:**
-  No terminal interativo do Codex:
-  ```text
-  Execute o workflow de busca de vagas com a skill career-ops-navigator
-  ```
+- **Comando:** `"Execute o workflow de busca de vagas com a skill career-ops-navigator"`
 
 ### 4. OpenCode & Outros CLIs Agentic
-- **Instalação Local:** Copie para `.agents/skills/career-ops-navigator/`.
-- **Como usar:**
-  ```text
-  "Quero me preparar para a entrevista da empresa X usando a skill career-ops-navigator"
-  ```
+- **Comando:** `"Quero me preparar para a entrevista da empresa X usando a skill career-ops-navigator"`
 
 ### 5. GitHub Copilot CLI
-- **Instalação Local:** Copie para `.github/skills/career-ops-navigator/`.
-- **Como usar:**
-  ```text
-  @career-ops-navigator o que devo fazer agora no meu funil?
-  ```
+- **Comando:** `@career-ops-navigator o que devo fazer agora no meu funil?`
 
 ---
 
-## 🗺️ Matriz de Intenções (O que você pode pedir)
+## 🗺️ Matriz de Intenções
 
 | O que você quer fazer? | A Skill fará automaticamente: |
 |---|---|
-| 🏁 **Configurar / Onboarding** | Diagnosticar o repositório (`npm run doctor`), orientar criação do `cv.md` e `profile.yml` sem inventar fatos. |
+| 🏁 **Configurar / Onboarding** | Diagnosticar o repositório (`npm run doctor`), orientar criação do `cv.md` e `profile.yml`. |
 | 🔍 **Buscar Vagas (Scan)** | Validar portais (`npm run validate:portals`) e executar o scanner (`npm run scan -- --verify`). |
-| ⚡ **Avaliar Lote de Vagas** | Executar o processador de pipeline (`/career-ops pipeline`) para analisar relatórios pendentes. |
-| 🎯 **Avaliar 1 Vaga Específica** | Extrair JD da URL, checar se está ativa, rodar auto-pipeline (Blocos A-G) e gerar relatório em `reports/`. |
+| ⚡ **Avaliar Lote de Vagas** | Executar o processador de pipeline (`/career-ops pipeline`). |
+| 🎯 **Avaliar 1 Vaga Específica** | Extrair JD, pontuar (1-5) e salvar relatório em `reports/`. |
 | 📄 **Gerar Currículo ATS (PDF)** | Gerar PDF estilizado e otimizado na pasta `output/` (`/career-ops pdf`). |
-| 📝 **Assistente de Formulação (Apply)** | Mapear formulário da vaga e rascunhar respostas personalizadas sem submeter sem sua aprovação. |
-| 🎤 **Preparar para Entrevista** | Montar treino de histórias STAR e preparar perguntas específicas (`/career-ops interview-prep`). |
+| 📝 **Assistente de Formulação (Apply)** | Mapear formulário e rascunhar respostas personalizadas sem submeter sem sua aprovação. |
+| 🎤 **Preparar para Entrevista** | Montar treino de histórias STAR e preparar perguntas (`/career-ops interview-prep`). |
 | 📊 **Ver Métricas do Tracker** | Exibir saúde e status da pipeline (`npm run verify` ou `/career-ops tracker`). |
-
----
-
-## 🔄 Fluxo Completo Recomendado (Workflow 1 a 7)
-
-```mermaid
-flowchart TD
-    A[1. Diagnóstico e Onboarding] --> B[2. Scanner de Portais]
-    B --> C[3. Fila da Pipeline]
-    C --> D[4. Avaliação A-G & Scoring]
-    D --> E[5. Geração de PDF ATS]
-    E --> F[6. Assistente de Candidatura / Apply]
-    F --> G[7. Interview Prep & Tracker]
-```
-
-1. **Diagnóstico Inicial:** `npm run doctor`
-2. **Varredura:** `npm run scan -- --verify`
-3. **Avaliação Automatizada:** `/career-ops pipeline` ou `/career-ops {URL}`
-4. **Exportação:** `/career-ops pdf`
-5. **Candidatura Segura:** `/career-ops apply` (Sempre *Human-in-the-Loop*)
 
 ---
 

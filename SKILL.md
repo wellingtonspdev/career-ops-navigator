@@ -1,5 +1,6 @@
 ---
 name: career-ops-navigator
+version: 2.0.0
 description: >-
   Navegador e assistente de workflow inteligente para o career-ops. Guia o usuário
   passo a passo em qualquer CLI de IA (Antigravity, Codex, OpenCode, Claude Code, Copilot)
@@ -12,11 +13,21 @@ argument-hint: "[ajuda | como usar | ordem de comandos | fluxo diario | avaliar 
 license: MIT
 ---
 
-# career-ops-navigator -- Assistente Interativo de Workflow
+# career-ops-navigator v2.0.0 -- Assistente Interativo de Workflow
 
 O **career-ops-navigator** elimina a necessidade de memorizar scripts do Node.js, subcomandos do agente ou a ordem correta de execução do projeto `career-ops`.
 
 Ele traduz o objetivo atual do usuário (em linguagem natural) nas ações, ordens de execução e verificações adequadas para qualquer CLI de IA.
+
+---
+
+## 📌 Histórico de Versões & Controle de Release
+
+| Versão | Data | Principais Mudanças |
+|---|---|---|
+| **v2.0.0** | 2026-07-28 | **Major Release:** Ciclo autônomo completo por vaga (Reports + PDFs A4 + Apply JSON + Recrutadores LinkedIn + Tracker), otimizações operacionais e 6 novos aprendizados de precisão. |
+| **v1.1.0** | 2026-07-28 | Adicionadas diretrizes de execução contínua sem prompts repetitivos por etapa e sincronização multi-CLI. |
+| **v1.0.0** | 2026-07-28 | Lançamento inicial da skill com matriz de intenções, comandos e scripts para Antigravity CLI, Codex, Claude Code, OpenCode e Copilot. |
 
 ---
 
